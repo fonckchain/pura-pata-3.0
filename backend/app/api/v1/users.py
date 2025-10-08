@@ -1,0 +1,92 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+from uuid import UUID
+
+from app.core.database import get_db
+from app.core.security import get_current_user_id
+from app.models.user import User
+from app.schemas.user import UserCreate, UserUpdate, UserResponse
+
+router = APIRouter()
+
+
+@router.post("", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+def create_user(
+    user_data: UserCreate,
+    db: Session = Depends(get_db),
+):
+    """
+    Create a new user profile
+    """
+    # Check if user already exists
+    existing_user = db.query(User).filter(User.email == user_data.email).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User with this email already exists"
+        )
+
+    user = User(**user_data.model_dump())
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.get("/me", response_model=UserResponse)
+def get_current_user_profile(
+    current_user_id: str = Depends(get_current_user_id),
+    db: Session = Depends(get_db),
+):
+    """
+    Get current user profile
+    """
+    user = db.query(User).filter(User.id == current_user_id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    return user
+
+
+@router.put("/me", response_model=UserResponse)
+def update_user_profile(
+    user_data: UserUpdate,
+    current_user_id: str = Depends(get_current_user_id),
+    db: Session = Depends(get_db),
+):
+    """
+    Update current user profile
+    """
+    user = db.query(User).filter(User.id == current_user_id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    for key, value in user_data.model_dump(exclude_unset=True).items():
+        setattr(user, key, value)
+
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.get("/{user_id}", response_model=UserResponse)
+def get_user(
+    user_id: UUID,
+    db: Session = Depends(get_db),
+):
+    """
+    Get user by ID
+    """
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    return user
