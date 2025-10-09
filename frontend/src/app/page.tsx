@@ -1,13 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Dog, DogFilters } from '@/types';
 import { dogsApi } from '@/lib/api';
 import DogCard from '@/components/DogCard';
-import MapView from '@/components/MapView';
 import Navbar from '@/components/Navbar';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { costaRicaProvinces, dogSizes } from '@/lib/utils';
+
+// Load MapView only on client side
+const MapView = dynamic(() => import('@/components/MapView'), {
+  ssr: false,
+  loading: () => <div className="h-[600px] bg-gray-200 rounded-lg flex items-center justify-center">Cargando mapa...</div>
+});
 
 export default function Home() {
   const [dogs, setDogs] = useState<Dog[]>([]);
