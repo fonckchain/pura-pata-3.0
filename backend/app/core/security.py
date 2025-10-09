@@ -3,12 +3,12 @@ from typing import Optional
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from supabase import create_client, Client
 from app.core.config import settings
 
 security = HTTPBearer()
 
 # Supabase client
+from supabase import create_client, Client
 supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 
 
@@ -25,7 +25,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """
-    Verify Supabase JWT token and return user data
+    Verify JWT token and return user data from Supabase
     """
     token = credentials.credentials
     credentials_exception = HTTPException(
@@ -35,12 +35,10 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     )
 
     try:
-        # Verify token with Supabase
         user = supabase.auth.get_user(token)
-        if not user:
-            raise credentials_exception
-
-        return user.user
+        if user and user.user:
+            return user.user
+        raise credentials_exception
     except Exception as e:
         raise credentials_exception
 
