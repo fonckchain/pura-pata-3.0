@@ -339,12 +339,6 @@ pytest  # (cuando se agreguen tests)
 
 MIT License - ver archivo LICENSE
 
-## 👥 Contacto
-
-Tu Nombre - [@tu_twitter](https://twitter.com/tu_twitter)
-
-Project Link: [https://github.com/tu-usuario/pura-pata-3.0](https://github.com/tu-usuario/pura-pata-3.0)
-
 ---
 
 Hecho con ❤️ para los perritos de Costa Rica 🇨🇷
