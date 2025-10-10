@@ -38,4 +38,9 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy"}
+    return {
+        "status": "healthy",
+        "supabase_url": settings.SUPABASE_URL,
+        "allowed_origins": settings.allowed_origins_list,
+        "environment": settings.ENVIRONMENT
+    }
