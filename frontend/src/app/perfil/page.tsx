@@ -51,7 +51,7 @@ export default function PerfilPage() {
   const fetchProfile = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/v1/users/me');
+      const response = await api.get('/users/me');
       const profileData = response.data;
       setProfile(profileData);
       setFormData({
@@ -76,7 +76,7 @@ export default function PerfilPage() {
     setSaving(true);
 
     try {
-      await api.put('/api/v1/users/me', formData);
+      await api.put('/users/me', formData);
       setSuccess('Perfil actualizado correctamente');
       await fetchProfile();
     } catch (err: any) {

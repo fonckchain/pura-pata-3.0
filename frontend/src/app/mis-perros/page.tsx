@@ -50,7 +50,7 @@ export default function MisPerrosPage() {
   const fetchMyDogs = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/v1/dogs/me');
+      const response = await api.get('/dogs/me');
       setDogs(response.data);
     } catch (err: any) {
       console.error('Error fetching dogs:', err);
@@ -66,7 +66,7 @@ export default function MisPerrosPage() {
     }
 
     try {
-      await api.delete(`/api/v1/dogs/${dogId}`);
+      await api.delete(`/dogs/${dogId}`);
       setDogs(dogs.filter(dog => dog.id !== dogId));
     } catch (err: any) {
       console.error('Error deleting dog:', err);

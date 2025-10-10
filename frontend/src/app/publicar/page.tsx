@@ -110,7 +110,7 @@ export default function PublicarPage() {
         status: 'disponible',
       };
 
-      const response = await api.post('/api/v1/dogs', dogData);
+      const response = await api.post('/dogs', dogData);
       const newDog = response.data;
 
       // Redirect to the new dog's page
