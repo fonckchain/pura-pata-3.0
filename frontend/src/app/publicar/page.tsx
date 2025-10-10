@@ -403,7 +403,7 @@ export default function PublicarPage() {
                     className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="sterilized" className="ml-3 text-sm font-medium text-gray-700">
-                    Esterilizado
+                    Castrado
                   </label>
                 </div>
 
