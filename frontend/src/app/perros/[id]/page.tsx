@@ -22,6 +22,7 @@ export default function DogDetailPage() {
     if (params.id) {
       loadDog();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const loadDog = async () => {
