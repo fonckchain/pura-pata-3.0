@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
-import { api } from '@/lib/api';
+import api from '@/lib/api';
 import { uploadDogPhoto } from '@/lib/supabase';
 import { Camera, MapPin, Save, X } from 'lucide-react';
 
@@ -152,11 +153,11 @@ export default function PublicarPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 {photoUrls.map((url, index) => (
                   <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
-                    <img src={url} alt={`Foto ${index + 1}`} className="w-full h-full object-cover" />
+                    <Image src={url} alt={`Foto ${index + 1}`} fill className="object-cover" />
                     <button
                       type="button"
                       onClick={() => removePhoto(index)}
-                      className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700"
+                      className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 z-10"
                     >
                       <X className="h-4 w-4" />
                     </button>

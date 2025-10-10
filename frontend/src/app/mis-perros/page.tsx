@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
-import { api } from '@/lib/api';
+import api from '@/lib/api';
 import { Plus, Edit, Trash2, MapPin, Calendar } from 'lucide-react';
 
 interface Dog {

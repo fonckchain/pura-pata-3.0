@@ -55,12 +55,12 @@ export const getUser = async () => {
 };
 
 // Storage helpers
-export const uploadDogPhoto = async (file: File, dogId: string, index: number) => {
+export const uploadDogPhoto = async (file: File, dogId?: string, index?: number) => {
   const fileExt = file.name.split('.').pop();
-  const fileName = `${dogId}_${index}_${Date.now()}.${fileExt}`;
+  const fileName = `${dogId || 'temp'}_${index || 0}_${Date.now()}.${fileExt}`;
   const filePath = `dogs/${fileName}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from('dog-photos')
     .upload(filePath, file, {
       cacheControl: '3600',
@@ -68,14 +68,14 @@ export const uploadDogPhoto = async (file: File, dogId: string, index: number) =
     });
 
   if (error) {
-    return { data: null, error };
+    throw new Error(`Error uploading photo: ${error.message}`);
   }
 
   const { data: { publicUrl } } = supabase.storage
     .from('dog-photos')
     .getPublicUrl(filePath);
 
-  return { data: publicUrl, error: null };
+  return publicUrl;
 };
 
 export const deletePhotos = async (photoUrls: string[]) => {

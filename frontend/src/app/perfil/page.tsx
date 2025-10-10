@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { api } from '@/lib/api';
+import api from '@/lib/api';
 import { User, Mail, Phone, MapPin, Save } from 'lucide-react';
 
 interface UserProfile {
