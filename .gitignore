@@ -10,8 +10,11 @@ ENV/
 # Environment variables
 .env
 .env.local
-.env.*.local
-*.env
+.env.development.local
+.env.test.local
+.env.development
+.env.test
+# .env.production is allowed to be committed
 
 # Build outputs
 frontend/.next/
