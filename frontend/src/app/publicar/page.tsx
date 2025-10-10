@@ -90,6 +90,8 @@ export default function PublicarPage() {
     setError('');
     setSubmitting(true);
 
+    let dogData = null;
+
     try {
       // Upload photos first
       let uploadedPhotoUrls: string[] = [];
@@ -101,7 +103,7 @@ export default function PublicarPage() {
       }
 
       // Create dog with photo URLs
-      const dogData = {
+      dogData = {
         ...formData,
         photos: uploadedPhotoUrls,
         status: 'disponible',

@@ -66,6 +66,7 @@ export default function LocationPicker({ latitude, longitude, onLocationChange }
         mapRef.current = null;
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Update marker position when props change
