@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Force rebuild to use new API URL
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
   images: {
     remotePatterns: [
       {
