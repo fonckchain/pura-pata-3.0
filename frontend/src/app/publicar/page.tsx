@@ -3,10 +3,16 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
 import { uploadDogPhoto } from '@/lib/supabase';
 import { Camera, MapPin, Save, X } from 'lucide-react';
+
+const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">Cargando mapa...</div>
+});
 
 export default function PublicarPage() {
   const router = useRouter();
@@ -195,7 +201,7 @@ export default function PublicarPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="Max"
                   />
                 </div>
@@ -211,7 +217,7 @@ export default function PublicarPage() {
                     value={formData.breed}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="Labrador"
                   />
                 </div>
@@ -229,7 +235,7 @@ export default function PublicarPage() {
                     min="0"
                     max="25"
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   />
                 </div>
 
@@ -245,7 +251,7 @@ export default function PublicarPage() {
                     onChange={handleChange}
                     min="0"
                     max="11"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   />
                 </div>
 
@@ -259,7 +265,7 @@ export default function PublicarPage() {
                     value={formData.gender}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   >
                     <option value="">Seleccione</option>
                     <option value="macho">Macho</option>
@@ -277,7 +283,7 @@ export default function PublicarPage() {
                     value={formData.size}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   >
                     <option value="">Seleccione</option>
                     <option value="pequeño">Pequeño (menos de 10kg)</option>
@@ -294,7 +300,7 @@ export default function PublicarPage() {
                 <MapPin className="h-5 w-5 mr-2" />
                 Ubicación
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-2">
                     Provincia *
@@ -305,7 +311,7 @@ export default function PublicarPage() {
                     value={formData.province}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   >
                     <option value="">Seleccione</option>
                     <option value="San José">San José</option>
@@ -329,10 +335,23 @@ export default function PublicarPage() {
                     value={formData.canton}
                     onChange={handleChange}
                     required
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="San José"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Ubicación en el Mapa
+                </label>
+                <LocationPicker
+                  latitude={formData.latitude}
+                  longitude={formData.longitude}
+                  onLocationChange={(lat, lng) => {
+                    setFormData({ ...formData, latitude: lat, longitude: lng });
+                  }}
+                />
               </div>
             </div>
 
@@ -378,7 +397,7 @@ export default function PublicarPage() {
                     name="special_needs"
                     value={formData.special_needs}
                     onChange={handleChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="Medicación diaria, dieta especial, etc."
                   />
                 </div>
