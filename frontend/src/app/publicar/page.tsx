@@ -16,7 +16,6 @@ const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
 
 export default function PublicarPage() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -49,7 +48,6 @@ export default function PublicarPage() {
         router.push('/login');
         return;
       }
-      setUser(session.user);
       setLoading(false);
     };
 
@@ -116,7 +114,26 @@ export default function PublicarPage() {
       router.push(`/perros/${newDog.id}`);
     } catch (err: any) {
       console.error('Error creating dog:', err);
-      setError(err.response?.data?.detail || 'Error al publicar el perro');
+      console.error('Error details:', {
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status,
+        dogData: dogData
+      });
+
+      let errorMessage = 'Error al publicar el perro';
+
+      if (err.response?.data?.detail) {
+        if (typeof err.response.data.detail === 'string') {
+          errorMessage = err.response.data.detail;
+        } else if (Array.isArray(err.response.data.detail)) {
+          errorMessage = err.response.data.detail.map((d: any) => d.msg).join(', ');
+        }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
       setSubmitting(false);
       setUploadingPhotos(false);
     }
