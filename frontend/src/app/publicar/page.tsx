@@ -35,6 +35,7 @@ export default function PublicarPage() {
     description: '',
     vaccinated: false,
     sterilized: false,
+    dewormed: false,
     special_needs: '',
   });
 
@@ -403,6 +404,20 @@ export default function PublicarPage() {
                   />
                   <label htmlFor="sterilized" className="ml-3 text-sm font-medium text-gray-700">
                     Esterilizado
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="dewormed"
+                    name="dewormed"
+                    checked={formData.dewormed}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="dewormed" className="ml-3 text-sm font-medium text-gray-700">
+                    Desparasitado
                   </label>
                 </div>
 

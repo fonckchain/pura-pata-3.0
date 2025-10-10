@@ -16,7 +16,7 @@ class Dog(Base):
     breed = Column(String(100), nullable=False)
     size = Column(String(20), nullable=False)  # pequeño, mediano, grande
     gender = Column(String(10), nullable=False)  # macho, hembra
-    color = Column(String(100), nullable=False)
+    color = Column(String(100), nullable=True)
     description = Column(Text, nullable=True)
 
     vaccinated = Column(Boolean, default=False)
@@ -28,8 +28,9 @@ class Dog(Base):
     longitude = Column(Float, nullable=False)
     address = Column(Text, nullable=True)
     province = Column(String(50), nullable=True)
+    canton = Column(String(50), nullable=True)
 
-    contact_phone = Column(String(20), nullable=False)
+    contact_phone = Column(String(20), nullable=True)
     contact_email = Column(String(255), nullable=True)
 
     photos = Column(ARRAY(Text), nullable=False)

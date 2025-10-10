@@ -11,7 +11,7 @@ class DogBase(BaseModel):
     breed: str
     size: str  # pequeño, mediano, grande
     gender: str  # macho, hembra
-    color: str
+    color: Optional[str] = None
     description: Optional[str] = None
     vaccinated: bool = False
     sterilized: bool = False
@@ -21,7 +21,8 @@ class DogBase(BaseModel):
     longitude: float
     address: Optional[str] = None
     province: Optional[str] = None
-    contact_phone: str
+    canton: Optional[str] = None
+    contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
 
 
