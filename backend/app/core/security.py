@@ -39,7 +39,10 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         if user and user.user:
             return user.user
         raise credentials_exception
+    except HTTPException:
+        raise
     except Exception as e:
+        print(f"Supabase auth error: {type(e).__name__}: {str(e)}")
         raise credentials_exception
 
 

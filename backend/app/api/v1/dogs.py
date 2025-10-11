@@ -125,24 +125,32 @@ def create_dog(
     """
     Create a new dog listing
     """
-    dog = Dog(
-        **dog_data.model_dump(),
-        publisher_id=current_user_id
-    )
-    db.add(dog)
-    db.commit()
-    db.refresh(dog)
+    try:
+        dog = Dog(
+            **dog_data.model_dump(),
+            publisher_id=current_user_id
+        )
+        db.add(dog)
+        db.commit()
+        db.refresh(dog)
 
-    # Create status history
-    history = DogStatusHistory(
-        dog_id=dog.id,
-        old_status=None,
-        new_status='disponible'
-    )
-    db.add(history)
-    db.commit()
+        # Create status history
+        history = DogStatusHistory(
+            dog_id=dog.id,
+            old_status=None,
+            new_status='disponible'
+        )
+        db.add(history)
+        db.commit()
 
-    return dog
+        return dog
+    except Exception as e:
+        db.rollback()
+        print(f"Error creating dog: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error creating dog: {str(e)}"
+        )
 
 
 @router.put("/{dog_id}", response_model=DogResponse)
