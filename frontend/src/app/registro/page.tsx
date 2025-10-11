@@ -61,7 +61,6 @@ export default function RegisterPage() {
         {
           name: formData.name,
           phone: formData.phone,
-          location: `${formData.address}, ${formData.canton}, ${formData.province}`,
         }
       );
 
@@ -77,7 +76,6 @@ export default function RegisterPage() {
             email: formData.email,
             name: formData.name,
             phone: formData.phone,
-            location: `${formData.address}, ${formData.canton}, ${formData.province}`,
             province: formData.province,
             canton: formData.canton,
             address: formData.address,
@@ -86,6 +84,10 @@ export default function RegisterPage() {
           } as any);
         } catch (err) {
           console.error('Error creating profile:', err);
+          // Show error to user
+          setError('Error al crear el perfil. Por favor intenta nuevamente.');
+          setLoading(false);
+          return;
         }
 
         router.push('/');

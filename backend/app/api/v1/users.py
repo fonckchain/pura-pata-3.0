@@ -40,25 +40,17 @@ def create_user(
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_profile(
     current_user_id: str = Depends(get_current_user_id),
-    current_user = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """
-    Get current user profile - creates one if it doesn't exist
+    Get current user profile
     """
     user = db.query(User).filter(User.id == current_user_id).first()
     if not user:
-        # User authenticated but no profile - create a minimal profile
-        # This can happen if registration flow was interrupted
-        user = User(
-            id=current_user_id,
-            email=current_user.email,  # Get email from Supabase Auth
-            name="Usuario",
-            phone=None
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User profile not found. Please complete registration."
         )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
     return user
 
 
