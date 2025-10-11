@@ -24,6 +24,7 @@ class DogBase(BaseModel):
     canton: Optional[str] = None
     contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
+    has_whatsapp: bool = False
 
 
 class DogCreate(DogBase):
@@ -50,6 +51,7 @@ class DogUpdate(BaseModel):
     province: Optional[str] = None
     contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
+    has_whatsapp: Optional[bool] = None
     photos: Optional[List[str]] = None
     certificate: Optional[str] = None
 

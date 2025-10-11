@@ -250,21 +250,25 @@ export default function DogDetailPage() {
               {/* Contact Buttons - Only show if not owner */}
               {!isOwner && dog.status === 'disponible' && (
                 <div className="space-y-3">
-                  <button
-                    onClick={handleWhatsAppClick}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center space-x-2"
-                  >
-                    <Phone className="h-5 w-5" />
-                    <span>Contactar por WhatsApp</span>
-                  </button>
+                  {dog.contact_phone && dog.has_whatsapp && (
+                    <button
+                      onClick={handleWhatsAppClick}
+                      className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center space-x-2"
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span>Contactar por WhatsApp</span>
+                    </button>
+                  )}
 
-                  <a
-                    href={`tel:${dog.contact_phone}`}
-                    className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 flex items-center justify-center space-x-2"
-                  >
-                    <Phone className="h-5 w-5" />
-                    <span>Llamar: {dog.contact_phone}</span>
-                  </a>
+                  {dog.contact_phone && (
+                    <a
+                      href={`tel:${dog.contact_phone}`}
+                      className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 flex items-center justify-center space-x-2"
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span>Llamar: {dog.contact_phone}</span>
+                    </a>
+                  )}
 
                   {dog.contact_email && (
                     <a

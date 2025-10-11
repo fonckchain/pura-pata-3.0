@@ -32,6 +32,7 @@ class Dog(Base):
 
     contact_phone = Column(String(20), nullable=True)
     contact_email = Column(String(255), nullable=True)
+    has_whatsapp = Column(Boolean, default=False)
 
     photos = Column(ARRAY(Text), nullable=False)
     certificate = Column(Text, nullable=True)

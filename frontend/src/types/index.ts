@@ -32,6 +32,7 @@ export interface Dog {
   province?: string;
   contact_phone: string;
   contact_email?: string;
+  has_whatsapp: boolean;
   photos: string[];
   certificate?: string;
   status: 'disponible' | 'reservado' | 'adoptado';

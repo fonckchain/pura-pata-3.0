@@ -44,6 +44,12 @@ export default function PublicarPage() {
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
 
+  const [contactPreferences, setContactPreferences] = useState({
+    showPhone: true,
+    hasWhatsApp: true,
+    showEmail: false,
+  });
+
   useEffect(() => {
     const checkUserAndLoadProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -92,6 +98,11 @@ export default function PublicarPage() {
     }
   };
 
+  const handleContactPreferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setContactPreferences({ ...contactPreferences, [name]: checked });
+  };
+
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
@@ -113,6 +124,13 @@ export default function PublicarPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // Validate at least one contact method is selected
+    if (!contactPreferences.showPhone && !contactPreferences.showEmail) {
+      setError('Debes seleccionar al menos un método de contacto (teléfono o email)');
+      return;
+    }
+
     setSubmitting(true);
 
     let dogData = null;
@@ -127,11 +145,14 @@ export default function PublicarPage() {
         setUploadingPhotos(false);
       }
 
-      // Create dog with photo URLs
+      // Create dog with photo URLs and apply contact preferences
       dogData = {
         ...formData,
         photos: uploadedPhotoUrls,
         status: 'disponible',
+        contact_phone: contactPreferences.showPhone ? formData.contact_phone : null,
+        contact_email: contactPreferences.showEmail ? formData.contact_email : null,
+        has_whatsapp: contactPreferences.showPhone && contactPreferences.hasWhatsApp,
       };
 
       const response = await api.post('/dogs', dogData);
@@ -459,6 +480,98 @@ export default function PublicarPage() {
                     placeholder="Medicación diaria, dieta especial, etc."
                   />
                 </div>
+              </div>
+            </div>
+
+            {/* Información de Contacto */}
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Información de Contacto</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Esta información se mostrará a las personas interesadas en adoptar
+              </p>
+
+              <div className="space-y-4">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Teléfono
+                      </label>
+                      <input
+                        type="tel"
+                        value={formData.contact_phone}
+                        disabled
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.contact_email}
+                        disabled
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="showPhone"
+                        name="showPhone"
+                        checked={contactPreferences.showPhone}
+                        onChange={handleContactPreferenceChange}
+                        className="h-4 w-4 mt-1 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="showPhone" className="ml-3">
+                        <span className="text-sm font-medium text-gray-700">Mostrar mi teléfono</span>
+                        <p className="text-xs text-gray-500">Los interesados podrán llamarte directamente</p>
+                      </label>
+                    </div>
+
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="hasWhatsApp"
+                        name="hasWhatsApp"
+                        checked={contactPreferences.hasWhatsApp}
+                        onChange={handleContactPreferenceChange}
+                        disabled={!contactPreferences.showPhone}
+                        className="h-4 w-4 mt-1 text-primary-600 focus:ring-primary-500 border-gray-300 rounded disabled:opacity-50"
+                      />
+                      <label htmlFor="hasWhatsApp" className="ml-3">
+                        <span className="text-sm font-medium text-gray-700">Tengo WhatsApp en este número</span>
+                        <p className="text-xs text-gray-500">Se mostrará un botón para contactarte por WhatsApp</p>
+                      </label>
+                    </div>
+
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="showEmail"
+                        name="showEmail"
+                        checked={contactPreferences.showEmail}
+                        onChange={handleContactPreferenceChange}
+                        className="h-4 w-4 mt-1 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="showEmail" className="ml-3">
+                        <span className="text-sm font-medium text-gray-700">Mostrar mi email</span>
+                        <p className="text-xs text-gray-500">Los interesados podrán contactarte por correo</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {!contactPreferences.showPhone && !contactPreferences.showEmail && (
+                  <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
+                    <p className="text-sm font-medium">⚠️ Debes seleccionar al menos un método de contacto</p>
+                  </div>
+                )}
               </div>
             </div>
 
