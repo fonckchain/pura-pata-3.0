@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dog } from '@/types';
 import { formatAge } from '@/lib/utils';
-import { MapPin, Heart } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 interface DogCardProps {
   dog: Dog;
@@ -41,9 +41,8 @@ export default function DogCard({ dog }: DogCardProps) {
         </div>
 
         <div className="p-4">
-          <div className="flex justify-between items-start mb-2">
+          <div className="mb-2">
             <h3 className="text-lg font-bold text-gray-900">{dog.name}</h3>
-            <Heart className="h-5 w-5 text-gray-400 hover:text-red-500 transition-colors" />
           </div>
 
           <div className="space-y-2 text-sm text-gray-600">
