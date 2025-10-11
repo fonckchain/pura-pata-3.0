@@ -23,7 +23,9 @@ export function formatDate(date: string): string {
   });
 }
 
-export function formatPhoneForWhatsApp(phone: string): string {
+export function formatPhoneForWhatsApp(phone: string | null | undefined): string {
+  // Return empty string if phone is null or undefined
+  if (!phone) return '';
   // Remove all non-digit characters
   return phone.replace(/\D/g, '');
 }

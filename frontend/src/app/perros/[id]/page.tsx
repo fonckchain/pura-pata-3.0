@@ -263,7 +263,7 @@ export default function DogDetailPage() {
                     className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 flex items-center justify-center space-x-2"
                   >
                     <Phone className="h-5 w-5" />
-                    <span>{dog.contact_phone}</span>
+                    <span>Llamar: {dog.contact_phone}</span>
                   </a>
 
                   {dog.contact_email && (
