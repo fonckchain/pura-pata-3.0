@@ -29,14 +29,28 @@ export default function DogDetailPage() {
   }, [params.id]);
 
   const checkUserAndLoadDog = async () => {
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      setCurrentUser(session.user);
-    }
+    try {
+      setLoading(true);
 
-    // Load dog
-    await loadDog();
+      // Check authentication
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setCurrentUser(session.user);
+      }
+
+      // Load dog
+      const data = await dogsApi.getDog(params.id as string);
+      setDog(data);
+
+      // Check if current user is the owner (use session.user directly, not state)
+      if (session && data.publisher_id === session.user.id) {
+        setIsOwner(true);
+      }
+    } catch (error) {
+      console.error('Error loading dog:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loadDog = async () => {
