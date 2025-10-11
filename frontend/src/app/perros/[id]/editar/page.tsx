@@ -55,7 +55,7 @@ export default function EditDogPage() {
       setDog(dogData);
 
       // Check ownership
-      if (dogData.user_id !== session.user.id) {
+      if (dogData.publisher_id !== session.user.id) {
         setError('No tienes permiso para editar este perro');
         setIsOwner(false);
         return;

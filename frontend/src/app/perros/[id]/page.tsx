@@ -46,7 +46,7 @@ export default function DogDetailPage() {
       setDog(data);
 
       // Check if current user is the owner
-      if (currentUser && data.user_id === currentUser.id) {
+      if (currentUser && data.publisher_id === currentUser.id) {
         setIsOwner(true);
       }
     } catch (error) {
