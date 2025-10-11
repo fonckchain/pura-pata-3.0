@@ -37,6 +37,8 @@ export default function PublicarPage() {
     sterilized: false,
     dewormed: false,
     special_needs: '',
+    contact_phone: '',
+    contact_email: '',
   });
 
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
@@ -54,14 +56,16 @@ export default function PublicarPage() {
       try {
         const userProfile = await usersApi.getProfile();
 
-        // Pre-fill location fields if available
+        // Pre-fill location and contact fields if available
         if (userProfile) {
           setFormData(prev => ({
             ...prev,
-            province: userProfile.province || prev.province,
-            canton: userProfile.canton || prev.canton,
-            latitude: userProfile.latitude || prev.latitude,
-            longitude: userProfile.longitude || prev.longitude,
+            province: userProfile.province ?? prev.province,
+            canton: userProfile.canton ?? prev.canton,
+            latitude: userProfile.latitude ?? prev.latitude,
+            longitude: userProfile.longitude ?? prev.longitude,
+            contact_phone: userProfile.phone ?? prev.contact_phone,
+            contact_email: userProfile.email ?? prev.contact_email,
           }));
         }
       } catch (error) {
