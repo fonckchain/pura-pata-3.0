@@ -166,23 +166,23 @@ export default function DogDetailPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-500">Edad</p>
-                    <p className="font-semibold">{formatAge(dog.age_years, dog.age_months)}</p>
+                    <p className="font-semibold text-gray-900">{formatAge(dog.age_years, dog.age_months)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Raza</p>
-                    <p className="font-semibold">{dog.breed}</p>
+                    <p className="font-semibold text-gray-900">{dog.breed}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Tamaño</p>
-                    <p className="font-semibold capitalize">{dog.size}</p>
+                    <p className="font-semibold capitalize text-gray-900">{dog.size}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Género</p>
-                    <p className="font-semibold capitalize">{dog.gender}</p>
+                    <p className="font-semibold capitalize text-gray-900">{dog.gender}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Color</p>
-                    <p className="font-semibold">{dog.color}</p>
+                    <p className="font-semibold text-gray-900">{dog.color}</p>
                   </div>
                 </div>
 
@@ -262,7 +262,7 @@ export default function DogDetailPage() {
             <div className="flex items-center mb-4">
               <MapPin className="h-5 w-5 text-gray-600 mr-2" />
               <div>
-                <p className="font-semibold">Ubicación</p>
+                <p className="font-semibold text-gray-900">Ubicación</p>
                 <p className="text-sm text-gray-600">{dog.address || dog.province}</p>
               </div>
             </div>

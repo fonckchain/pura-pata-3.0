@@ -149,7 +149,7 @@ export default function PerfilPage() {
                   value={formData.full_name}
                   onChange={handleChange}
                   required
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   placeholder="Juan Pérez"
                 />
               </div>
@@ -189,7 +189,7 @@ export default function PerfilPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="8888-8888"
                   />
                 </div>
@@ -209,7 +209,7 @@ export default function PerfilPage() {
                     name="whatsapp"
                     value={formData.whatsapp}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="8888-8888"
                   />
                 </div>
@@ -229,7 +229,7 @@ export default function PerfilPage() {
                   name="province"
                   value={formData.province}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                 >
                   <option value="">Seleccione una provincia</option>
                   <option value="San José">San José</option>

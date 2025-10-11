@@ -450,7 +450,7 @@ export default function PublicarPage() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                 placeholder="Cuéntanos sobre la personalidad del perro, su comportamiento, y por qué está en adopción..."
               />
             </div>
