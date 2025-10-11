@@ -2,10 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import { User, Mail, Phone, MapPin, Save } from 'lucide-react';
+
+const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">Cargando mapa...</div>
+});
 
 interface UserProfile {
   id: string;
@@ -15,6 +21,8 @@ interface UserProfile {
   whatsapp: string | null;
   address: string | null;
   province: string | null;
+  latitude: number | null;
+  longitude: number | null;
   created_at: string;
 }
 
@@ -33,6 +41,8 @@ export default function PerfilPage() {
     whatsapp: '',
     address: '',
     province: '',
+    latitude: 9.7489,
+    longitude: -83.7534,
   });
 
   useEffect(() => {
@@ -61,6 +71,8 @@ export default function PerfilPage() {
         whatsapp: profileData.whatsapp || '',
         address: profileData.address || '',
         province: profileData.province || '',
+        latitude: profileData.latitude || 9.7489,
+        longitude: profileData.longitude || -83.7534,
       });
     } catch (err: any) {
       console.error('Error fetching profile:', err);
@@ -258,6 +270,22 @@ export default function PerfilPage() {
                 onChange={handleChange}
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
                 placeholder="200m norte de la iglesia..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Ubicación en el Mapa
+              </label>
+              <p className="text-xs text-gray-500 mb-2">
+                Selecciona tu ubicación para que los adoptantes sepan dónde te encuentras
+              </p>
+              <LocationPicker
+                latitude={formData.latitude}
+                longitude={formData.longitude}
+                onLocationChange={(lat, lng) => {
+                  setFormData({ ...formData, latitude: lat, longitude: lng });
+                }}
               />
             </div>
 

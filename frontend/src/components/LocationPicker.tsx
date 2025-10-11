@@ -80,7 +80,11 @@ export default function LocationPicker({ latitude, longitude, onLocationChange }
 
   return (
     <div>
-      <div ref={mapContainerRef} className="h-64 w-full rounded-lg border border-gray-300 z-0" />
+      <div
+        ref={mapContainerRef}
+        style={{ height: '400px', width: '100%' }}
+        className="rounded-lg border border-gray-300 z-0"
+      />
       <p className="text-xs text-gray-500 mt-2">
         Click en el mapa o arrastra el marcador para seleccionar la ubicación exacta
       </p>
