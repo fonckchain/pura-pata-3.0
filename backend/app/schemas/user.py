@@ -9,6 +9,11 @@ class UserBase(BaseModel):
     name: str
     phone: str
     location: Optional[str] = None
+    province: Optional[str] = None
+    canton: Optional[str] = None
+    address: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
 
 
 class UserCreate(UserBase):
@@ -19,6 +24,11 @@ class UserUpdate(BaseModel):
     name: Optional[str] = None
     phone: Optional[str] = None
     location: Optional[str] = None
+    province: Optional[str] = None
+    canton: Optional[str] = None
+    address: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
 
 
 class UserResponse(UserBase):

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, Float
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 from app.core.database import Base
@@ -13,4 +13,9 @@ class User(Base):
     name = Column(String(255), nullable=False)
     phone = Column(String(20), nullable=False)
     location = Column(String(255), nullable=True)
+    province = Column(String(100), nullable=True)
+    canton = Column(String(100), nullable=True)
+    address = Column(String(255), nullable=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
