@@ -6,10 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dog } from '@/types';
 import { dogsApi } from '@/lib/api';
+import { supabase } from '@/lib/supabase';
 import { formatAge, formatDate, formatPhoneForWhatsApp, generateWhatsAppMessage } from '@/lib/utils';
 import Navbar from '@/components/Navbar';
 import MapView from '@/components/MapView';
-import { MapPin, Phone, Mail, Calendar, Share2, ArrowLeft } from 'lucide-react';
+import { MapPin, Phone, Mail, Calendar, Share2, ArrowLeft, Edit } from 'lucide-react';
 
 export default function DogDetailPage() {
   const params = useParams();
@@ -17,19 +18,37 @@ export default function DogDetailPage() {
   const [dog, setDog] = useState<Dog | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     if (params.id) {
-      loadDog();
+      checkUserAndLoadDog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
+
+  const checkUserAndLoadDog = async () => {
+    // Check authentication
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      setCurrentUser(session.user);
+    }
+
+    // Load dog
+    await loadDog();
+  };
 
   const loadDog = async () => {
     try {
       setLoading(true);
       const data = await dogsApi.getDog(params.id as string);
       setDog(data);
+
+      // Check if current user is the owner
+      if (currentUser && data.user_id === currentUser.id) {
+        setIsOwner(true);
+      }
     } catch (error) {
       console.error('Error loading dog:', error);
     } finally {
@@ -154,12 +173,23 @@ export default function DogDetailPage() {
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <h1 className="text-3xl font-bold text-gray-900">{dog.name}</h1>
-                <button
-                  onClick={handleShare}
-                  className="p-2 text-gray-600 hover:text-primary-600"
-                >
-                  <Share2 className="h-6 w-6" />
-                </button>
+                <div className="flex space-x-2">
+                  {isOwner && (
+                    <Link
+                      href={`/perros/${dog.id}/editar`}
+                      className="p-2 text-gray-600 hover:text-primary-600 border border-gray-300 rounded-md hover:border-primary-600"
+                      title="Editar perro"
+                    >
+                      <Edit className="h-6 w-6" />
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleShare}
+                    className="p-2 text-gray-600 hover:text-primary-600"
+                  >
+                    <Share2 className="h-6 w-6" />
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-4 mb-6">
@@ -224,8 +254,8 @@ export default function DogDetailPage() {
                 </div>
               </div>
 
-              {/* Contact Buttons */}
-              {dog.status === 'disponible' && (
+              {/* Contact Buttons - Only show if not owner */}
+              {!isOwner && dog.status === 'disponible' && (
                 <div className="space-y-3">
                   <button
                     onClick={handleWhatsAppClick}
@@ -252,6 +282,14 @@ export default function DogDetailPage() {
                       <span>{dog.contact_email}</span>
                     </a>
                   )}
+                </div>
+              )}
+
+              {/* Owner message */}
+              {isOwner && (
+                <div className="bg-primary-50 border border-primary-200 text-primary-700 px-4 py-3 rounded-lg">
+                  <p className="font-semibold">Este es tu perro</p>
+                  <p className="text-sm mt-1">Usa el botón de editar para actualizar la información</p>
                 </div>
               )}
             </div>
