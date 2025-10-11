@@ -14,20 +14,23 @@ router = APIRouter()
 @router.post("", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(
     user_data: UserCreate,
+    current_user_id: str = Depends(get_current_user_id),
     db: Session = Depends(get_db),
 ):
     """
-    Create a new user profile
+    Create a new user profile (must be authenticated with Supabase)
     """
     # Check if user already exists
-    existing_user = db.query(User).filter(User.email == user_data.email).first()
+    existing_user = db.query(User).filter(User.id == current_user_id).first()
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User with this email already exists"
+            detail="User profile already exists"
         )
 
-    user = User(**user_data.model_dump())
+    # Create user with Supabase Auth ID
+    user_dict = user_data.model_dump()
+    user = User(id=current_user_id, **user_dict)
     db.add(user)
     db.commit()
     db.refresh(user)
