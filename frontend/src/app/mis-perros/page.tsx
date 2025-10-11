@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
+import Navbar from '@/components/Navbar';
 import { Plus, Edit, Trash2, MapPin, Calendar } from 'lucide-react';
 
 interface Dog {
@@ -112,8 +113,10 @@ export default function MisPerrosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Mis Perros</h1>
@@ -227,6 +230,7 @@ export default function MisPerrosPage() {
             ))}
           </div>
         )}
+        </div>
       </div>
     </div>
   );

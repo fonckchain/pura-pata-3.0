@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
+import Navbar from '@/components/Navbar';
 import { User, Mail, Phone, MapPin, Save } from 'lucide-react';
 
 interface UserProfile {
@@ -106,8 +107,10 @@ export default function PerfilPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="bg-primary-600 px-6 py-8">
             <div className="flex items-center space-x-4">
@@ -276,6 +279,7 @@ export default function PerfilPage() {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
