@@ -4,7 +4,7 @@ from typing import List
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.security import get_current_user_id
+from app.core.security import get_current_user_id, get_current_user
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
 
@@ -38,19 +38,27 @@ def create_user(
 
 
 @router.get("/me", response_model=UserResponse)
-def get_current_user_profile(
+async def get_current_user_profile(
     current_user_id: str = Depends(get_current_user_id),
+    current_user = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """
-    Get current user profile
+    Get current user profile - creates one if it doesn't exist
     """
     user = db.query(User).filter(User.id == current_user_id).first()
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
+        # User authenticated but no profile - create a minimal profile
+        # This can happen if registration flow was interrupted
+        user = User(
+            id=current_user_id,
+            email=current_user.email,  # Get email from Supabase Auth
+            name="Usuario",
+            phone=""
         )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
     return user
 
 

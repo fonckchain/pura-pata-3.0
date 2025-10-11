@@ -16,11 +16,11 @@ const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
 interface UserProfile {
   id: string;
   email: string;
-  full_name: string;
+  name: string;
   phone: string | null;
-  whatsapp: string | null;
   address: string | null;
   province: string | null;
+  canton: string | null;
   latitude: number | null;
   longitude: number | null;
   created_at: string;
@@ -36,11 +36,11 @@ export default function PerfilPage() {
   const [success, setSuccess] = useState('');
 
   const [formData, setFormData] = useState({
-    full_name: '',
+    name: '',
     phone: '',
-    whatsapp: '',
     address: '',
     province: '',
+    canton: '',
     latitude: 9.7489,
     longitude: -83.7534,
   });
@@ -66,11 +66,11 @@ export default function PerfilPage() {
       const profileData = response.data;
       setProfile(profileData);
       setFormData({
-        full_name: profileData.full_name || '',
+        name: profileData.name || '',
         phone: profileData.phone || '',
-        whatsapp: profileData.whatsapp || '',
         address: profileData.address || '',
         province: profileData.province || '',
+        canton: profileData.canton || '',
         latitude: profileData.latitude || 9.7489,
         longitude: profileData.longitude || -83.7534,
       });
@@ -130,7 +130,7 @@ export default function PerfilPage() {
                 <User className="h-12 w-12 text-primary-600" />
               </div>
               <div className="text-white">
-                <h1 className="text-2xl font-bold">{profile?.full_name || 'Mi Perfil'}</h1>
+                <h1 className="text-2xl font-bold">{profile?.name || 'Mi Perfil'}</h1>
                 <p className="text-primary-100">{user?.email}</p>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function PerfilPage() {
             )}
 
             <div>
-              <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 Nombre Completo *
               </label>
               <div className="relative">
@@ -159,9 +159,9 @@ export default function PerfilPage() {
                 </div>
                 <input
                   type="text"
-                  id="full_name"
-                  name="full_name"
-                  value={formData.full_name}
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   required
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
@@ -192,7 +192,7 @@ export default function PerfilPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Teléfono
+                  Teléfono *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -204,6 +204,7 @@ export default function PerfilPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    required
                     className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="8888-8888"
                   />
@@ -211,23 +212,18 @@ export default function PerfilPage() {
               </div>
 
               <div>
-                <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 mb-2">
-                  WhatsApp
+                <label htmlFor="canton" className="block text-sm font-medium text-gray-700 mb-2">
+                  Cantón
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="tel"
-                    id="whatsapp"
-                    name="whatsapp"
-                    value={formData.whatsapp}
-                    onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
-                    placeholder="8888-8888"
-                  />
-                </div>
+                <input
+                  type="text"
+                  id="canton"
+                  name="canton"
+                  value={formData.canton}
+                  onChange={handleChange}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
+                  placeholder="Central"
+                />
               </div>
             </div>
 
