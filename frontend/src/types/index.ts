@@ -4,6 +4,11 @@ export interface User {
   name: string;
   phone: string;
   location?: string;
+  province?: string;
+  canton?: string;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
   created_at: string;
 }
 

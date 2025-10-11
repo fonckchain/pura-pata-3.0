@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { supabase } from '@/lib/supabase';
-import api from '@/lib/api';
+import api, { usersApi } from '@/lib/api';
 import { uploadDogPhoto } from '@/lib/supabase';
 import { Camera, MapPin, Save, X } from 'lucide-react';
 
@@ -43,16 +43,36 @@ export default function PublicarPage() {
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
 
   useEffect(() => {
-    const checkUser = async () => {
+    const checkUserAndLoadProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         router.push('/login');
         return;
       }
+
+      // Load user profile and pre-fill location data
+      try {
+        const userProfile = await usersApi.getProfile();
+
+        // Pre-fill location fields if available
+        if (userProfile) {
+          setFormData(prev => ({
+            ...prev,
+            province: userProfile.province || prev.province,
+            canton: userProfile.canton || prev.canton,
+            latitude: userProfile.latitude || prev.latitude,
+            longitude: userProfile.longitude || prev.longitude,
+          }));
+        }
+      } catch (error) {
+        console.error('Error loading user profile:', error);
+        // Continue anyway, user can fill manually
+      }
+
       setLoading(false);
     };
 
-    checkUser();
+    checkUserAndLoadProfile();
   }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
