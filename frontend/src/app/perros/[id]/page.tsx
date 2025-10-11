@@ -53,23 +53,6 @@ export default function DogDetailPage() {
     }
   };
 
-  const loadDog = async () => {
-    try {
-      setLoading(true);
-      const data = await dogsApi.getDog(params.id as string);
-      setDog(data);
-
-      // Check if current user is the owner
-      if (currentUser && data.publisher_id === currentUser.id) {
-        setIsOwner(true);
-      }
-    } catch (error) {
-      console.error('Error loading dog:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleWhatsAppClick = () => {
     if (!dog) return;
     const phone = formatPhoneForWhatsApp(dog.contact_phone);
@@ -223,10 +206,6 @@ export default function DogDetailPage() {
                   <div>
                     <p className="text-sm text-gray-500">Género</p>
                     <p className="font-semibold capitalize text-gray-900">{dog.gender}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Color</p>
-                    <p className="font-semibold text-gray-900">{dog.color}</p>
                   </div>
                 </div>
 
