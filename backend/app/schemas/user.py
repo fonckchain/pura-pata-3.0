@@ -7,8 +7,7 @@ from uuid import UUID
 class UserBase(BaseModel):
     email: EmailStr
     name: str
-    phone: str
-    location: Optional[str] = None
+    phone: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
     address: Optional[str] = None
@@ -23,7 +22,6 @@ class UserCreate(UserBase):
 class UserUpdate(BaseModel):
     name: Optional[str] = None
     phone: Optional[str] = None
-    location: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
     address: Optional[str] = None

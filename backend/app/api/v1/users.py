@@ -54,7 +54,7 @@ async def get_current_user_profile(
             id=current_user_id,
             email=current_user.email,  # Get email from Supabase Auth
             name="Usuario",
-            phone=""
+            phone=None
         )
         db.add(user)
         db.commit()
