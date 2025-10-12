@@ -25,7 +25,29 @@ export default function EditDogPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [isOwner, setIsOwner] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    breed: string;
+    age_years: number;
+    age_months: number;
+    gender: 'macho' | 'hembra' | '';
+    size: 'pequeño' | 'mediano' | 'grande' | '';
+    color: string;
+    description: string;
+    vaccinated: boolean;
+    sterilized: boolean;
+    dewormed: boolean;
+    special_needs: string;
+    address: string;
+    province: string;
+    canton: string;
+    latitude: number;
+    longitude: number;
+    status: 'disponible' | 'reservado' | 'adoptado';
+    contact_phone: string;
+    contact_email: string;
+    has_whatsapp: boolean;
+  }>({
     name: '',
     breed: '',
     age_years: 0,
@@ -43,7 +65,7 @@ export default function EditDogPage() {
     canton: '',
     latitude: 9.7489,
     longitude: -83.7534,
-    status: 'disponible' as 'disponible' | 'reservado' | 'adoptado',
+    status: 'disponible',
     contact_phone: '',
     contact_email: '',
     has_whatsapp: false,
@@ -154,7 +176,7 @@ export default function EditDogPage() {
     setSaving(true);
 
     try {
-      const updateData = {
+      const updateData: any = {
         ...formData,
         contact_phone: contactPreferences.showPhone ? formData.contact_phone : null,
         contact_email: contactPreferences.showEmail ? formData.contact_email : null,
