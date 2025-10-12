@@ -162,64 +162,71 @@ export default function MisPerrosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {dogs.map((dog) => (
               <div key={dog.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                <div className="relative h-64">
-                  {dog.photos && dog.photos.length > 0 ? (
-                    <Image
-                      src={dog.photos[0]}
-                      alt={dog.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-400">Sin foto</span>
-                    </div>
-                  )}
-                  <div className="absolute top-3 right-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(dog.status)}`}>
-                      {getStatusText(dog.status)}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-5">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{dog.name}</h3>
-                  <p className="text-gray-600 mb-4">{dog.breed}</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                      {dog.canton}, {dog.province}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                      Publicado {new Date(dog.created_at).toLocaleDateString('es-CR')}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2 text-xs text-gray-600 mb-4">
-                    {dog.vaccinated && (
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
-                        Vacunado
-                      </span>
+                <Link href={`/perros/${dog.id}`} className="block">
+                  <div className="relative h-64">
+                    {dog.photos && dog.photos.length > 0 ? (
+                      <Image
+                        src={dog.photos[0]}
+                        alt={dog.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">Sin foto</span>
+                      </div>
                     )}
-                    {dog.sterilized && (
-                      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                        Esterilizado
+                    <div className="absolute top-3 right-3">
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(dog.status)}`}>
+                        {getStatusText(dog.status)}
                       </span>
-                    )}
+                    </div>
                   </div>
 
+                  <div className="p-5">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{dog.name}</h3>
+                    <p className="text-gray-600 mb-4">{dog.breed}</p>
+
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <MapPin className="h-4 w-4 mr-2 text-gray-400" />
+                        {dog.canton}, {dog.province}
+                      </div>
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                        Publicado {new Date(dog.created_at).toLocaleDateString('es-CR')}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2 text-xs text-gray-600 mb-4">
+                      {dog.vaccinated && (
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
+                          Vacunado
+                        </span>
+                      )}
+                      {dog.sterilized && (
+                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                          Esterilizado
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+
+                <div className="px-5 pb-5">
                   <div className="flex space-x-2">
                     <Link
-                      href={`/perros/${dog.id}`}
+                      href={`/perros/${dog.id}/editar`}
                       className="flex-1 flex items-center justify-center space-x-1 bg-primary-600 text-white px-4 py-2 rounded hover:bg-primary-700 transition text-sm"
                     >
                       <Edit className="h-4 w-4" />
-                      <span>Ver/Editar</span>
+                      <span>Editar</span>
                     </Link>
                     <button
-                      onClick={() => handleDelete(dog.id, dog.name)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(dog.id, dog.name);
+                      }}
                       className="flex items-center justify-center bg-red-50 text-red-600 px-4 py-2 rounded hover:bg-red-100 transition"
                     >
                       <Trash2 className="h-4 w-4" />
