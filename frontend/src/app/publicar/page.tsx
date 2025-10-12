@@ -494,26 +494,34 @@ export default function PublicarPage() {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Teléfono
+                      <label htmlFor="contact_phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        Teléfono *
                       </label>
                       <input
                         type="tel"
+                        id="contact_phone"
+                        name="contact_phone"
                         value={formData.contact_phone}
-                        disabled
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
+                        onChange={handleChange}
+                        required
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
+                        placeholder="8888-8888"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email
+                      <label htmlFor="contact_email" className="block text-sm font-medium text-gray-700 mb-2">
+                        Email *
                       </label>
                       <input
                         type="email"
+                        id="contact_email"
+                        name="contact_email"
                         value={formData.contact_email}
-                        disabled
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
+                        onChange={handleChange}
+                        required
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
+                        placeholder="correo@ejemplo.com"
                       />
                     </div>
                   </div>
