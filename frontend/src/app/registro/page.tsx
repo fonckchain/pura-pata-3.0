@@ -23,7 +23,6 @@ export default function RegisterPage() {
     phone: '',
     province: '',
     canton: '',
-    address: '',
     latitude: 9.7489,
     longitude: -83.7534,
   });
@@ -78,7 +77,6 @@ export default function RegisterPage() {
             phone: formData.phone,
             province: formData.province,
             canton: formData.canton,
-            address: formData.address,
             latitude: formData.latitude,
             longitude: formData.longitude,
           } as any);
@@ -235,22 +233,6 @@ export default function RegisterPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                      Dirección *
-                    </label>
-                    <input
-                      id="address"
-                      name="address"
-                      type="text"
-                      required
-                      value={formData.address}
-                      onChange={handleChange}
-                      placeholder="200m norte de la iglesia..."
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-gray-900"
-                    />
-                  </div>
-
-                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Ubicación en el Mapa *
                     </label>
@@ -261,7 +243,7 @@ export default function RegisterPage() {
                       latitude={formData.latitude}
                       longitude={formData.longitude}
                       onLocationChange={(lat, lng) => {
-                        setFormData({ ...formData, latitude: lat, longitude: lng });
+                        setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }));
                       }}
                     />
                   </div>

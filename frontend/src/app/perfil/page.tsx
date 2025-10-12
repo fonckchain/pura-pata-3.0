@@ -18,7 +18,6 @@ interface UserProfile {
   email: string;
   name: string;
   phone: string | null;
-  address: string | null;
   province: string | null;
   canton: string | null;
   latitude: number | null;
@@ -38,7 +37,6 @@ export default function PerfilPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: '',
     province: '',
     canton: '',
     latitude: 9.7489,
@@ -68,7 +66,6 @@ export default function PerfilPage() {
       setFormData({
         name: profileData.name || '',
         phone: profileData.phone || '',
-        address: profileData.address || '',
         province: profileData.province || '',
         canton: profileData.canton || '',
         latitude: profileData.latitude || 9.7489,
@@ -255,21 +252,6 @@ export default function PerfilPage() {
             </div>
 
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                Dirección
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
-                placeholder="200m norte de la iglesia..."
-              />
-            </div>
-
-            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Ubicación en el Mapa
               </label>
@@ -280,7 +262,7 @@ export default function PerfilPage() {
                 latitude={formData.latitude}
                 longitude={formData.longitude}
                 onLocationChange={(lat, lng) => {
-                  setFormData({ ...formData, latitude: lat, longitude: lng });
+                  setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }));
                 }}
               />
             </div>
