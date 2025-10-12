@@ -298,7 +298,7 @@ export default function DogDetailPage() {
               <MapPin className="h-5 w-5 text-gray-600 mr-2" />
               <div>
                 <p className="font-semibold text-gray-900">Ubicación</p>
-                <p className="text-sm text-gray-600">{dog.address || dog.province}</p>
+                <p className="text-sm text-gray-600">{dog.canton ? `${dog.canton}, ${dog.province}` : dog.province}</p>
               </div>
             </div>
             <MapView dogs={[dog]} center={[dog.latitude, dog.longitude]} zoom={13} height="300px" />

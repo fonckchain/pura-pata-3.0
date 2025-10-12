@@ -31,7 +31,6 @@ export interface Dog {
   contact_email?: string;
   has_whatsapp: boolean;
   photos: string[];
-  certificate?: string;
   status: 'disponible' | 'reservado' | 'adoptado';
   publisher_id: string;
   publisher?: User;

@@ -33,7 +33,6 @@ class Dog(Base):
     has_whatsapp = Column(Boolean, default=False)
 
     photos = Column(ARRAY(Text), nullable=False)
-    certificate = Column(Text, nullable=True)
 
     status = Column(String(20), default='disponible')  # disponible, reservado, adoptado
 

@@ -27,7 +27,6 @@ class DogBase(BaseModel):
 
 class DogCreate(DogBase):
     photos: List[str]
-    certificate: Optional[str] = None
 
 
 class DogUpdate(BaseModel):
@@ -50,7 +49,6 @@ class DogUpdate(BaseModel):
     contact_email: Optional[str] = None
     has_whatsapp: Optional[bool] = None
     photos: Optional[List[str]] = None
-    certificate: Optional[str] = None
 
 
 class DogStatusUpdate(BaseModel):
@@ -60,7 +58,6 @@ class DogStatusUpdate(BaseModel):
 class DogResponse(DogBase):
     id: UUID
     photos: List[str]
-    certificate: Optional[str] = None
     status: str
     publisher_id: UUID
     created_at: datetime

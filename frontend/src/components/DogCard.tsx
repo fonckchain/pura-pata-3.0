@@ -62,7 +62,7 @@ export default function DogCard({ dog }: DogCardProps) {
 
           <div className="mt-3 flex items-center text-sm text-gray-500">
             <MapPin className="h-4 w-4 mr-1" />
-            <span>{dog.province || dog.address}</span>
+            <span>{dog.canton ? `${dog.canton}, ${dog.province}` : dog.province}</span>
           </div>
 
           <div className="mt-3 flex flex-wrap gap-2">
