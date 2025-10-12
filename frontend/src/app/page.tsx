@@ -68,6 +68,10 @@ export default function Home() {
       result = result.filter(dog => dog.sterilized);
     }
 
+    if (filters.dewormed) {
+      result = result.filter(dog => dog.dewormed);
+    }
+
     setFilteredDogs(result);
   };
 
