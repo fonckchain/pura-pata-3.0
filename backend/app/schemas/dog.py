@@ -53,7 +53,6 @@ class DogUpdate(BaseModel):
     contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
     has_whatsapp: Optional[bool] = None
-    status: Optional[str] = None
     photos: Optional[List[str]] = None
     certificate: Optional[str] = None
 

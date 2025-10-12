@@ -176,8 +176,9 @@ export default function EditDogPage() {
     setSaving(true);
 
     try {
+      const { status, ...dataWithoutStatus } = formData;
       const updateData: any = {
-        ...formData,
+        ...dataWithoutStatus,
         contact_phone: contactPreferences.showPhone ? formData.contact_phone : null,
         contact_email: contactPreferences.showEmail ? formData.contact_email : null,
         has_whatsapp: contactPreferences.showPhone && contactPreferences.hasWhatsApp,
