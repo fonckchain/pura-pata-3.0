@@ -3,10 +3,8 @@ export interface User {
   email: string;
   name: string;
   phone: string;
-  location?: string;
   province?: string;
   canton?: string;
-  address?: string;
   latitude?: number;
   longitude?: number;
   created_at: string;
@@ -20,7 +18,6 @@ export interface Dog {
   breed: string;
   size: 'pequeño' | 'mediano' | 'grande';
   gender: 'macho' | 'hembra';
-  color: string;
   description?: string;
   vaccinated: boolean;
   sterilized: boolean;
@@ -28,7 +25,6 @@ export interface Dog {
   special_needs?: string;
   latitude: number;
   longitude: number;
-  address?: string;
   province?: string;
   canton?: string;
   contact_phone: string;
@@ -51,7 +47,6 @@ export interface DogFormData {
   breed: string;
   size: 'pequeño' | 'mediano' | 'grande';
   gender: 'macho' | 'hembra';
-  color: string;
   description?: string;
   vaccinated: boolean;
   sterilized: boolean;
@@ -59,7 +54,6 @@ export interface DogFormData {
   special_needs?: string;
   latitude: number;
   longitude: number;
-  address?: string;
   province?: string;
   contact_phone: string;
   contact_email?: string;

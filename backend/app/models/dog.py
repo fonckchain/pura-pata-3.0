@@ -15,8 +15,7 @@ class Dog(Base):
     age_months = Column(Integer, default=0)
     breed = Column(String(100), nullable=False)
     size = Column(String(20), nullable=False)  # pequeño, mediano, grande
-    gender = Column(String(10), nullable=False)  # macho, hembra
-    color = Column(String(100), nullable=True)
+    gender = Column(String(10), nullable=False)
     description = Column(Text, nullable=True)
 
     vaccinated = Column(Boolean, default=False)

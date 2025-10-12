@@ -11,7 +11,6 @@ class DogBase(BaseModel):
     breed: str
     size: str  # pequeño, mediano, grande
     gender: str  # macho, hembra
-    color: Optional[str] = None
     description: Optional[str] = None
     vaccinated: bool = False
     sterilized: bool = False
@@ -38,7 +37,6 @@ class DogUpdate(BaseModel):
     breed: Optional[str] = None
     size: Optional[str] = None
     gender: Optional[str] = None
-    color: Optional[str] = None
     description: Optional[str] = None
     vaccinated: Optional[bool] = None
     sterilized: Optional[bool] = None

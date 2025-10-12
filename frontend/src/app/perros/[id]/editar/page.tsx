@@ -32,13 +32,11 @@ export default function EditDogPage() {
     age_months: number;
     gender: 'macho' | 'hembra' | '';
     size: 'pequeño' | 'mediano' | 'grande' | '';
-    color: string;
     description: string;
     vaccinated: boolean;
     sterilized: boolean;
     dewormed: boolean;
     special_needs: string;
-    address: string;
     province: string;
     canton: string;
     latitude: number;
@@ -54,13 +52,11 @@ export default function EditDogPage() {
     age_months: 0,
     gender: '',
     size: '',
-    color: '',
     description: '',
     vaccinated: false,
     sterilized: false,
     dewormed: false,
     special_needs: '',
-    address: '',
     province: '',
     canton: '',
     latitude: 9.7489,
@@ -113,13 +109,11 @@ export default function EditDogPage() {
         age_months: dogData.age_months || 0,
         gender: dogData.gender || '',
         size: dogData.size || '',
-        color: dogData.color || '',
         description: dogData.description || '',
         vaccinated: dogData.vaccinated || false,
         sterilized: dogData.sterilized || false,
         dewormed: dogData.dewormed || false,
         special_needs: dogData.special_needs || '',
-        address: dogData.address || '',
         province: dogData.province || '',
         canton: dogData.canton || '',
         latitude: dogData.latitude || 9.7489,
