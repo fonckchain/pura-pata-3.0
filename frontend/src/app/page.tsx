@@ -177,8 +177,8 @@ export default function Home() {
               </div>
 
               <div className="md:col-span-3">
-                <div className="flex gap-4">
-                  <label className="flex items-center">
+                <div className="flex flex-wrap gap-4">
+                  <label className="flex items-center text-gray-900">
                     <input
                       type="checkbox"
                       checked={filters.vaccinated || false}
@@ -187,7 +187,7 @@ export default function Home() {
                     />
                     Vacunado
                   </label>
-                  <label className="flex items-center">
+                  <label className="flex items-center text-gray-900">
                     <input
                       type="checkbox"
                       checked={filters.sterilized || false}
@@ -195,6 +195,15 @@ export default function Home() {
                       className="mr-2"
                     />
                     Castrado
+                  </label>
+                  <label className="flex items-center text-gray-900">
+                    <input
+                      type="checkbox"
+                      checked={filters.dewormed || false}
+                      onChange={(e) => setFilters({ ...filters, dewormed: e.target.checked })}
+                      className="mr-2"
+                    />
+                    Desparasitado
                   </label>
                 </div>
               </div>

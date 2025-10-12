@@ -76,6 +76,7 @@ export interface DogFilters {
   radius?: number;
   vaccinated?: boolean;
   sterilized?: boolean;
+  dewormed?: boolean;
 }
 
 export interface StatusHistory {
