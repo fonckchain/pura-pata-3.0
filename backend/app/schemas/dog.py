@@ -49,9 +49,11 @@ class DogUpdate(BaseModel):
     longitude: Optional[float] = None
     address: Optional[str] = None
     province: Optional[str] = None
+    canton: Optional[str] = None
     contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
     has_whatsapp: Optional[bool] = None
+    status: Optional[str] = None
     photos: Optional[List[str]] = None
     certificate: Optional[str] = None
 
