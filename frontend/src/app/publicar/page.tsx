@@ -414,7 +414,7 @@ export default function PublicarPage() {
                   latitude={formData.latitude}
                   longitude={formData.longitude}
                   onLocationChange={(lat, lng) => {
-                    setFormData({ ...formData, latitude: lat, longitude: lng });
+                    setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }));
                   }}
                 />
               </div>
