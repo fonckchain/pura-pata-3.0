@@ -25,6 +25,7 @@ interface Dog {
   created_at: string;
   vaccinated: boolean;
   sterilized: boolean;
+  dewormed: boolean;
 }
 
 export default function MisPerrosPage() {
@@ -198,15 +199,20 @@ export default function MisPerrosPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-2 text-xs text-gray-600 mb-4">
+                    <div className="flex items-center flex-wrap gap-2 text-xs text-gray-600 mb-4">
                       {dog.vaccinated && (
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
+                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
                           Vacunado
                         </span>
                       )}
                       {dog.sterilized && (
-                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                          Esterilizado
+                        <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                          Castrado
+                        </span>
+                      )}
+                      {dog.dewormed && (
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded">
+                          Desparasitado
                         </span>
                       )}
                     </div>
