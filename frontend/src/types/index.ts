@@ -30,6 +30,7 @@ export interface Dog {
   longitude: number;
   address?: string;
   province?: string;
+  canton?: string;
   contact_phone: string;
   contact_email?: string;
   has_whatsapp: boolean;
