@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Dog } from '@/types';
-import { dogsApi } from '@/lib/api';
+import { dogsApi, usersApi } from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
 import { MapPin, Save, ArrowLeft, CheckCircle } from 'lucide-react';
@@ -90,6 +90,9 @@ export default function EditDogPage() {
       }
       setCurrentUser(session.user);
 
+      // Load user profile to get default contact info
+      const userProfile = await usersApi.getProfile();
+
       // Load dog
       const dogData = await dogsApi.getDog(params.id as string);
       setDog(dogData);
@@ -119,8 +122,8 @@ export default function EditDogPage() {
         latitude: dogData.latitude || 9.7489,
         longitude: dogData.longitude || -83.7534,
         status: dogData.status,
-        contact_phone: dogData.contact_phone || '',
-        contact_email: dogData.contact_email || '',
+        contact_phone: dogData.contact_phone || userProfile.phone || '',
+        contact_email: dogData.contact_email || userProfile.email || '',
         has_whatsapp: dogData.has_whatsapp || false,
       });
 
