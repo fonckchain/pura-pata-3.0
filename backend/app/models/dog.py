@@ -26,7 +26,6 @@ class Dog(Base):
 
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
-    address = Column(Text, nullable=True)
     province = Column(String(50), nullable=True)
     canton = Column(String(50), nullable=True)
 

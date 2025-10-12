@@ -10,7 +10,6 @@ class UserBase(BaseModel):
     phone: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
-    address: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
 
@@ -24,7 +23,6 @@ class UserUpdate(BaseModel):
     phone: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
-    address: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
 

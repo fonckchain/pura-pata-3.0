@@ -14,7 +14,6 @@ class User(Base):
     phone = Column(String(20), nullable=True)
     province = Column(String(100), nullable=True)
     canton = Column(String(100), nullable=True)
-    address = Column(String(255), nullable=True)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

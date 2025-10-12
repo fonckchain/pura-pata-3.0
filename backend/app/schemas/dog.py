@@ -19,7 +19,6 @@ class DogBase(BaseModel):
     special_needs: Optional[str] = None
     latitude: float
     longitude: float
-    address: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
     contact_phone: Optional[str] = None
@@ -47,7 +46,6 @@ class DogUpdate(BaseModel):
     special_needs: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
-    address: Optional[str] = None
     province: Optional[str] = None
     canton: Optional[str] = None
     contact_phone: Optional[str] = None
