@@ -205,7 +205,7 @@ export default function EditDogPage() {
     setSaving(true);
 
     try {
-      await dogsApi.updateDog(params.id as string, { ...formData, status: 'adoptado' } as any);
+      await dogsApi.updateStatus(params.id as string, 'adoptado');
       setSuccess('¡Felicidades! El perro ha sido marcado como adoptado');
       setFormData({ ...formData, status: 'adoptado' });
 
