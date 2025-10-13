@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
-import { Dog } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -45,7 +45,7 @@ export default function LoginPage() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <div className="flex justify-center">
-              <Dog className="h-12 w-12 text-primary-600" />
+              <Logo width={80} height={80} showText={false} />
             </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Iniciar sesión

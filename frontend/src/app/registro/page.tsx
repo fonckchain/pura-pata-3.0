@@ -7,7 +7,8 @@ import dynamic from 'next/dynamic';
 import { signUp } from '@/lib/supabase';
 import { usersApi } from '@/lib/api';
 import Navbar from '@/components/Navbar';
-import { Dog, MapPin } from 'lucide-react';
+import Logo from '@/components/Logo';
+import { MapPin } from 'lucide-react';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
   ssr: false,
@@ -105,7 +106,7 @@ export default function RegisterPage() {
         <div className="max-w-2xl w-full space-y-8">
           <div>
             <div className="flex justify-center">
-              <Dog className="h-12 w-12 text-primary-600" />
+              <Logo width={80} height={80} showText={false} />
             </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Crear cuenta
