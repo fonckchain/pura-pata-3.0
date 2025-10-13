@@ -181,7 +181,14 @@ export default function EditDogPage() {
         has_whatsapp: contactPreferences.showPhone && contactPreferences.hasWhatsApp,
       };
 
+      // Update dog information (excluding status)
       await dogsApi.updateDog(params.id as string, updateData);
+
+      // Update status separately if it changed
+      if (dog && status !== dog.status) {
+        await dogsApi.updateStatus(params.id as string, status as 'disponible' | 'reservado' | 'adoptado');
+      }
+
       setSuccess('Perro actualizado correctamente');
 
       // Reload dog data
