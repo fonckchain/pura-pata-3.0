@@ -221,17 +221,30 @@ export default function PublicarPage() {
               <label className="block text-lg font-semibold text-gray-900 mb-4">
                 Fotos del Perro
               </label>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                <p className="text-sm text-blue-800">
+                  <strong>💡 Consejo:</strong> Las fotos se mostrarán en formato cuadrado. Si subes fotos verticales, se recortarán automáticamente. Para mejores resultados, usa fotos horizontales o cuadradas donde el perro esté centrado.
+                </p>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 {photoUrls.map((url, index) => (
-                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
-                    <Image src={url} alt={`Foto ${index + 1}`} fill className="object-cover" />
-                    <button
-                      type="button"
-                      onClick={() => removePhoto(index)}
-                      className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 z-10"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
+                  <div key={index} className="space-y-2">
+                    <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 border-2 border-gray-300">
+                      <Image src={url} alt={`Foto ${index + 1}`} fill className="object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(index)}
+                        className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 z-10"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                      {index === 0 && (
+                        <div className="absolute bottom-2 left-2 bg-primary-600 text-white text-xs px-2 py-1 rounded">
+                          Foto Principal
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-xs text-center text-gray-600">Vista en tarjeta</p>
                   </div>
                 ))}
                 {photoUrls.length < 5 && (
@@ -248,7 +261,9 @@ export default function PublicarPage() {
                   </label>
                 )}
               </div>
-              <p className="text-sm text-gray-500">Máximo 5 fotos. La primera será la foto principal.</p>
+              <p className="text-sm text-gray-500">
+                <strong>Máximo 5 fotos.</strong> La primera será la foto principal. Las imágenes se recortan automáticamente en formato cuadrado.
+              </p>
             </div>
 
             {/* Información Básica */}

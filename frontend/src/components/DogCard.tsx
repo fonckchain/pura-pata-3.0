@@ -31,7 +31,8 @@ export default function DogCard({ dog }: DogCardProps) {
             src={dog.photos[0] || '/placeholder-dog.jpg'}
             alt={dog.name}
             fill
-            className="object-cover"
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute top-2 right-2">
             <span className={`px-2 py-1 rounded-full text-xs font-semibold ${statusColors[dog.status]}`}>
