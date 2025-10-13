@@ -57,7 +57,9 @@ export const getUser = async () => {
 // Storage helpers
 export const uploadDogPhoto = async (file: File, dogId?: string, index?: number) => {
   const fileExt = file.name.split('.').pop();
-  const fileName = `${dogId || 'temp'}_${index || 0}_${Date.now()}.${fileExt}`;
+  // Generate unique filename using timestamp + random string to avoid collisions
+  const randomString = Math.random().toString(36).substring(2, 15);
+  const fileName = `${dogId || 'temp'}_${index || 0}_${Date.now()}_${randomString}.${fileExt}`;
   const filePath = `dogs/${fileName}`;
 
   const { error } = await supabase.storage
