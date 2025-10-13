@@ -70,7 +70,14 @@ export const uploadDogPhoto = async (file: File, dogId?: string, index?: number)
     });
 
   if (error) {
-    throw new Error(`Error uploading photo: ${error.message}`);
+    // Translate common error messages to Spanish
+    let errorMessage = error.message;
+    if (error.message.includes('exceeded the maximum allowed size')) {
+      errorMessage = 'La imagen excede el tamaño máximo permitido. Por favor, comprime la imagen e intenta de nuevo.';
+    } else if (error.message.includes('already exists')) {
+      errorMessage = 'El archivo ya existe en el servidor.';
+    }
+    throw new Error(`Error al subir foto: ${errorMessage}`);
   }
 
   const { data: { publicUrl } } = supabase.storage

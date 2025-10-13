@@ -280,7 +280,7 @@ export default function PublicarPage() {
                 )}
               </div>
               <p className="text-sm text-gray-500">
-                <strong>Máximo 5 fotos.</strong> La primera será la foto principal. Las imágenes se recortan automáticamente en formato cuadrado.
+                <strong>Máximo 5 fotos.</strong> La primera será la foto principal.
               </p>
             </div>
 
