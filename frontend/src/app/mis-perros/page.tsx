@@ -35,6 +35,10 @@ export default function MisPerrosPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // Separate dogs into active and adopted
+  const activeDogs = dogs.filter(dog => dog.status !== 'adoptado');
+  const adoptedDogs = dogs.filter(dog => dog.status === 'adoptado');
+
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -160,9 +164,16 @@ export default function MisPerrosPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dogs.map((dog) => (
-              <div key={dog.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+          <>
+            {/* Active Dogs Section */}
+            {activeDogs.length > 0 && (
+              <div className="mb-8">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                  Perros Activos ({activeDogs.length})
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {activeDogs.map((dog) => (
+                    <div key={dog.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
                 <Link href={`/perros/${dog.id}`} className="block">
                   <div className="relative h-64">
                     {dog.photos && dog.photos.length > 0 ? (
@@ -241,7 +252,101 @@ export default function MisPerrosPage() {
                 </div>
               </div>
             ))}
-          </div>
+                </div>
+              </div>
+            )}
+
+            {/* Adopted Dogs Section */}
+            {adoptedDogs.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-500 mb-4">
+                  Perros Adoptados ({adoptedDogs.length})
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {adoptedDogs.map((dog) => (
+                    <div key={dog.id} className="bg-white rounded-lg shadow-sm overflow-hidden opacity-60 hover:opacity-100 transition">
+                      <Link href={`/perros/${dog.id}`} className="block">
+                        <div className="relative h-64">
+                          {dog.photos && dog.photos.length > 0 ? (
+                            <Image
+                              src={dog.photos[0]}
+                              alt={dog.name}
+                              fill
+                              className="object-cover grayscale"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                              <span className="text-gray-400">Sin foto</span>
+                            </div>
+                          )}
+                          <div className="absolute top-3 right-3">
+                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(dog.status)}`}>
+                              {getStatusText(dog.status)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="p-5">
+                          <h3 className="text-xl font-bold text-gray-700 mb-2">{dog.name}</h3>
+                          <p className="text-gray-500 mb-4">{dog.breed}</p>
+
+                          <div className="space-y-2 mb-4">
+                            <div className="flex items-center text-sm text-gray-500">
+                              <MapPin className="h-4 w-4 mr-2 text-gray-400" />
+                              {dog.canton}, {dog.province}
+                            </div>
+                            <div className="flex items-center text-sm text-gray-500">
+                              <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                              Publicado {new Date(dog.created_at).toLocaleDateString('es-CR')}
+                            </div>
+                          </div>
+
+                          <div className="flex items-center flex-wrap gap-2 text-xs text-gray-500 mb-4">
+                            {dog.vaccinated && (
+                              <span className="bg-blue-50 text-blue-600 px-2 py-1 rounded">
+                                Vacunado
+                              </span>
+                            )}
+                            {dog.sterilized && (
+                              <span className="bg-purple-50 text-purple-600 px-2 py-1 rounded">
+                                Castrado
+                              </span>
+                            )}
+                            {dog.dewormed && (
+                              <span className="bg-green-50 text-green-600 px-2 py-1 rounded">
+                                Desparasitado
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
+
+                      <div className="px-5 pb-5">
+                        <div className="flex space-x-2">
+                          <Link
+                            href={`/perros/${dog.id}/editar`}
+                            className="flex-1 flex items-center justify-center space-x-1 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition text-sm"
+                          >
+                            <Edit className="h-4 w-4" />
+                            <span>Ver</span>
+                          </Link>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete(dog.id, dog.name);
+                            }}
+                            className="flex items-center justify-center bg-red-50 text-red-600 px-4 py-2 rounded hover:bg-red-100 transition"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
         </div>
       </div>
