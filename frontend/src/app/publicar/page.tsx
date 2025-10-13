@@ -228,9 +228,15 @@ export default function PublicarPage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 {photoUrls.map((url, index) => (
-                  <div key={index} className="space-y-2">
+                  <div key={url} className="space-y-2">
                     <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 border-2 border-gray-300">
-                      <Image src={url} alt={`Foto ${index + 1}`} fill className="object-cover" />
+                      <Image
+                        src={url}
+                        alt={`Foto ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
                       <button
                         type="button"
                         onClick={() => removePhoto(index)}
