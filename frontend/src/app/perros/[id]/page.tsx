@@ -119,11 +119,11 @@ export default function DogDetailPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push(isOwner ? '/mis-perros' : '/')}
           className="flex items-center space-x-2 text-gray-600 hover:text-primary-600 mb-6"
         >
           <ArrowLeft className="h-5 w-5" />
-          <span>Volver</span>
+          <span>{isOwner ? 'Volver a Mis Perros' : 'Volver a Búsqueda'}</span>
         </button>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
