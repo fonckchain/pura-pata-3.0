@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { supabase, signOut } from '@/lib/supabase';
 import { User } from '@supabase/supabase-js';
-import { Dog, Heart, LogOut, Menu, Plus, User as UserIcon, X } from 'lucide-react';
+import { Heart, LogOut, Menu, Plus, User as UserIcon, X } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
@@ -38,10 +39,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <Dog className="h-8 w-8 text-primary-600" />
-              <span className="text-2xl font-bold text-primary-600">Pura Pata</span>
-            </Link>
+            <Logo width={40} height={40} />
           </div>
 
           {/* Desktop Menu */}
