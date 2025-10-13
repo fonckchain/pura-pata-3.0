@@ -6,7 +6,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { supabase } from '@/lib/supabase';
 import api, { usersApi } from '@/lib/api';
-import { uploadDogPhoto } from '@/lib/supabase';
+import { uploadDogPhoto, deletePhotos } from '@/lib/supabase';
 import { Camera, MapPin, Save, X } from 'lucide-react';
 
 const LocationPicker = dynamic(() => import('@/components/LocationPicker'), {
@@ -168,6 +168,18 @@ export default function PublicarPage() {
         status: err.response?.status,
         dogData: dogData
       });
+
+      // Clean up uploaded photos if dog creation failed
+      if (dogData?.photos && dogData.photos.length > 0) {
+        console.log('Cleaning up uploaded photos...');
+        try {
+          await deletePhotos(dogData.photos);
+          console.log('Successfully deleted orphaned photos');
+        } catch (deleteError) {
+          console.error('Error deleting photos:', deleteError);
+          // Continue with error handling even if cleanup fails
+        }
+      }
 
       let errorMessage = 'Error al publicar el perro';
 
