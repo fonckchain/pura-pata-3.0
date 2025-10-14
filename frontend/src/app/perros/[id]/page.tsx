@@ -10,6 +10,7 @@ import { supabase } from '@/lib/supabase';
 import { formatAge, formatDate, formatPhoneForWhatsApp, generateWhatsAppMessage } from '@/lib/utils';
 import Navbar from '@/components/Navbar';
 import MapView from '@/components/MapView';
+import DogStructuredData from '@/components/DogStructuredData';
 import { MapPin, Phone, Mail, Calendar, Share2, ArrowLeft, Edit } from 'lucide-react';
 
 export default function DogDetailPage() {
@@ -115,6 +116,7 @@ export default function DogDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <DogStructuredData dog={dog} />
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

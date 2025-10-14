@@ -1,0 +1,50 @@
+{
+  "name": "Pura Pata - Adopción de Perros en Costa Rica",
+  "short_name": "Pura Pata",
+  "description": "Encuentra tu mejor amigo. Plataforma de adopción responsable de perros en Costa Rica.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d97706",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "social"],
+  "lang": "es-CR",
+  "dir": "ltr",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Ver Perros",
+      "short_name": "Perros",
+      "description": "Ver perros disponibles para adopción",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/logo.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Publicar Perro",
+      "short_name": "Publicar",
+      "description": "Publicar un perro en adopción",
+      "url": "/publicar",
+      "icons": [
+        {
+          "src": "/logo.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
