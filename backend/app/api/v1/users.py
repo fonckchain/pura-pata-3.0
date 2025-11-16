@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
+from sqlalchemy import text
 from typing import List
 from uuid import UUID
 
@@ -45,7 +46,55 @@ async def get_current_user_profile(
     """
     Get current user profile
     """
-    user = db.query(User).filter(User.id == current_user_id).first()
+    # Use explicit column selection to avoid location column error
+    # This ensures we only query columns that exist in the model
+    try:
+        user = db.query(User).options(
+            load_only(
+                User.id,
+                User.email,
+                User.name,
+                User.phone,
+                User.province,
+                User.canton,
+                User.latitude,
+                User.longitude,
+                User.created_at
+            )
+        ).filter(User.id == current_user_id).first()
+    except Exception as e:
+        # Fallback: use raw SQL if load_only doesn't work due to metadata issues
+        if "location" in str(e).lower() or "undefinedcolumn" in str(e).lower():
+            # Use raw SQL to explicitly select only existing columns
+            result = db.execute(
+                text("""
+                    SELECT id, email, name, phone, province, canton, 
+                           latitude, longitude, created_at
+                    FROM users
+                    WHERE id = :user_id
+                """),
+                {"user_id": current_user_id}
+            ).first()
+            if not result:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="User profile not found. Please complete registration."
+                )
+            # Convert result to User object
+            user = User(
+                id=result.id,
+                email=result.email,
+                name=result.name,
+                phone=result.phone,
+                province=result.province,
+                canton=result.canton,
+                latitude=result.latitude,
+                longitude=result.longitude,
+                created_at=result.created_at
+            )
+        else:
+            raise
+    
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
