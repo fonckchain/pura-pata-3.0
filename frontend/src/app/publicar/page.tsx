@@ -424,7 +424,7 @@ export default function PublicarPage() {
 
                 <div>
                   <label htmlFor="canton" className="block text-sm font-medium text-gray-700 mb-2">
-                    Cantón *
+                    Cantón
                   </label>
                   <input
                     type="text"
@@ -432,7 +432,6 @@ export default function PublicarPage() {
                     name="canton"
                     value={formData.canton}
                     onChange={handleChange}
-                    required
                     className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="San José"
                   />
@@ -619,14 +618,13 @@ export default function PublicarPage() {
             {/* Descripción */}
             <div>
               <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-                Descripción *
+                Descripción
               </label>
               <textarea
                 id="description"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                required
                 rows={5}
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                 placeholder="Cuéntanos sobre la personalidad del perro, su comportamiento, y por qué está en adopción..."
