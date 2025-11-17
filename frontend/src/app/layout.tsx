@@ -40,8 +40,15 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/logo.svg',
-    apple: '/logo.svg',
+    icon: [
+      { url: '/logo.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
   },
   manifest: '/manifest.json',
   openGraph: {
@@ -78,6 +85,46 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured Data for Search Engines (Organization & WebSite)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Pura Pata",
+  "url": "https://pura-pata.com",
+  "logo": "https://pura-pata.com/logo.svg",
+  "description": "Plataforma de adopción responsable de perros en Costa Rica",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "areaServed": "CR",
+    "availableLanguage": "Spanish"
+  }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Pura Pata",
+  "url": "https://pura-pata.com",
+  "description": "Encuentra tu mejor amigo en Costa Rica. Plataforma de adopción responsable de perros.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pura Pata",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pura-pata.com/logo.svg"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://pura-pata.com/perros?search={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -85,6 +132,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        {/* Structured Data for Search Engines - Organization & WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body className="antialiased">
         {children}
       </body>
